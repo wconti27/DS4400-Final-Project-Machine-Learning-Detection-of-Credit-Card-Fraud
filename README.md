@@ -55,7 +55,7 @@ This is broken up into two images in order to clearly see all of the features wi
 having the text be too small or stretched out. Both of these images show the same five
 transactions.
 
-![](.Images/raw_features.JPG)
+![](./Images/raw_features.JPG)
 These are the initial columns given to us in the dataset. The final column ‘is_fraud’ is our
 target variable in our classification. A value of 0 indicates that the transaction is valid,
 and a value of 1 shows that it is fraudulent. Our next step was to remove any features that
