@@ -56,6 +56,7 @@ having the text be too small or stretched out. Both of these images show the sam
 transactions.
 
 ![](./Images/raw_features.JPG)
+![](./Images/raw_features_2.JPG)
 These are the initial columns given to us in the dataset. The final column ‘is_fraud’ is our
 target variable in our classification. A value of 0 indicates that the transaction is valid,
 and a value of 1 shows that it is fraudulent. Our next step was to remove any features that
@@ -78,14 +79,14 @@ final and most important aggregations that we applied was to keep track of the p
 for each credit card number. Below are some of the visualizations we produced to see the
 feature correlation after we applied our engineering functions to the dataset.
 
-
+![](./Images/column_feature_importance.JPG)
 This is a chart of feature importance generated from the Random Forest algorithm.
 The features that are most strongly correlated with the target are the differences between
 the longitude, latitude, and amount. This coincides with the research we did on credit
 card fraud, and also the intuitive sense of what might indicate a fraudulent transaction.
 This chart also shows an interesting ranking of purchase categories in terms of fraud.
 
-
+![](./Images/feature_correlation_heatmap.JPG)
 This heatmap shows correlation between different features. This chart provides us
 with some interesting insights. The customer longitude and latitude is strongly correlated
 to the merchant longitude and latitude. This is why the difference between the
@@ -93,13 +94,13 @@ transaction’s location and the average location is so important in predicting 
 Purchases made far from a customer’s address are more likely to be fraudulent. Below
 we will show some visualizations that look at individual features in more depth.
 
-
+![](./Images/transactions_by_hour.JPG)
 Here we can see the correlation between the hour of the purchase and whether the
 transaction is fraudulent. Transactions that are made during business hours are very rarely
 fraud. Most credit card fraud occurs between 10:00 p.m and 3:00 a.m, so this is
 something that our model will pick up on and use to aid its predictions.
 
-
+![](./Images/distribution_of_monetary_value.JPG)
 This chart shows the range of different amounts found across the transaction data.
 Most credit card transactions are made with relatively small amounts of money. However,
 the dataset does contain outliers. Transactions with large amounts are rare in the dataset.
@@ -116,7 +117,7 @@ One of the major issues that we encountered early on was the imbalance of the
 dataset. The graph below shows just how few transactions were fraudulent in respect to
 the entire dataset.
 
-
+![](./Images/is_fraud_imbalance.JPG)
 This made it so that our models would predict transactions as ‘not fraud’ every time.
 Doing this would result in an accuracy of over 99%, but that is not a good metric to go by
 since it caught so few frauds. We wanted to improve the recall, so we had to take some
@@ -152,7 +153,7 @@ need to focus on the precision and the recall of the models. The way that we ide
 effective models is by comparing the F1 score and the ROC curves. Below is a graph of
 ROC curves from some different models that we tried.
 
-
+![](./Images/roc_curves.JPG)
 As seen in the graph above the AdaBoost and XGboost algorithms perform the
 best out of the models that we plotted. We were able to obtain a precision of 0.51, a recall
 of 0.59, and an F1 score of 0.55 for AdaBoost without any tuning, and we obtained a
@@ -187,7 +188,7 @@ in boosting is the weight. We found a nice visualization from Analytics Vidhya t
 shows the process of XGboost on an imbalanced dataset, and displays where weights will
 be important in classification.
 
-
+![](./Images/gradient_boosting.JPG)
 As shown in the chart above, the gradient boosting algorithm works based on the
 loss function. By applying a different weight to the classes in our dataset we are able to
 penalize the misclassification made by the minority class. We applied a high class weight
@@ -200,7 +201,8 @@ lowered the precision too much so we had to tune the algorithm differently in or
 deal with the tradeoff. The metrics of our final model are shown below, along with the
 parameters that we applied in order to achieve these results.
 
-
+![](./Images/xgboost_classification_report.JPG)
+![](./Images/xgboost_best_parameters.JPG)
 **Discussion and Result Interpretation**
 Our best balanced model was able to achieve an accuracy of 0.99, a precision of
 0.64, a recall of 0.79, and an F1 score of 0.71. These results are a massive improvement
