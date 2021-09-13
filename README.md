@@ -1,8 +1,11 @@
-**DS 4400 Final Project: Detecting Credit Card Fraud With Machine Learning**
-Nick Bagley and Will Conti
-Spring 2021
+# DS 4400 Final Project: Detecting Credit Card Fraud With Machine Learning**
+## Project Information:
+#### Nick Bagley and Will Conti
+#### Spring 2021 - Supervised Machine Learning in Data Science (DS4400)
 
-**Problem Statement**
+ 
+
+## Problem Statement
 The problem that we are trying to solve is how to defend against credit card fraud.
 This is a classification problem, and the machine learning algorithm should be able to
 classify a given transaction as either being valid or fraudulent. This is helpful to both the
@@ -17,6 +20,7 @@ they are a victim of credit card fraud that goes uncaught. There were 271,823 ca
 credit card fraud reported in the United States in 2019, and a total of $24.2 billion was
 lost due to credit card fraud worldwide in 2018. The problem is extremely widespread
 and affects millions of stakeholders.
+
 From a machine learning perspective there are a few key factors to consider. We
 determined that the most important thing in our models should be the power to correctly
 predict fraud. It is crucial to catch as many fraudulent transactions as possible, even if
@@ -24,22 +28,29 @@ that means it may identify some valid transactions as fraud. Customers would rat
 validate a transaction that was a false alarm than suffer a financial loss from a missed
 fraud case.
 
-**References**
+## References
 Dataset:
+
 https://www.kaggle.com/kartik2112/fraud-detection?select=fraudTest.csv
+
 Research:
+
 https://paymentdepot.com/blog/credit-card-fraud-detection/#:~:text=Credit%20card%20fraud%20detection%20is,an%20illegitimate%20credit%20card%20transaction.
 https://spd.group/machine-learning/credit-card-fraud-detection/
 https://machinelearningmastery.com/framework-for-imbalanced-classification-projects/
 https://www.fisglobal.com/en/insights/merchant-solutions-worldpay/article/6-things-to-look-for-in-a-credit-card-fraud-detection-solution
 https://machinelearningmastery.com/random-oversampling-and-undersampling-for-imbalanced-classification/
+
 Presentation Slides:
+
 https://docs.google.com/presentation/d/1TciXYUESaDTu0w-fcPD1raNOIjaU8cHWZWmp-p7h130/edit?usp=sharing
+
 Code Notebook:
+
 https://github.com/wconti27/DS4400_Final_Project/blob/main/ML_Project.ipynb
 
 
-**Dataset and Exploratory Analysis**
+## Dataset and Exploratory Analysis
 The dataset that we used is the Credit Card Transactions Fraud Detection Dataset
 from Kaggle, foundhere. We are unable to access real credit transaction data due to
 privacy laws, so this dataset contains simulated transactions of 1000 different customers
@@ -64,6 +75,7 @@ are not relevant to the problem. We did some external research on credit card fr
 find out what features are typically important in detecting it. We combined this with some
 analysis of our own in order to see which features could be deleted. This led us to drop
 columns such as name, date of birth, gender, and address.
+
 Once we removed irrelevant columns we started on feature engineering in order to
 add some predictive features of our own. This started with a one-hot encoding of the
 category feature so that it could be used by our model. Then we ran some extensive
@@ -106,13 +118,14 @@ Most credit card transactions are made with relatively small amounts of money. H
 the dataset does contain outliers. Transactions with large amounts are rare in the dataset.
 This can be an indicator of fraud if the amount is abnormal compared to the averages in
 the data.
+
 Through this exploratory analysis of our dataset we were able to come up with a
 final set of 35 features to predict our target variable. We experimented with removing and
 adding some different features from this set, but we found that our models performed best
 with this combination. We scaled the values in the dataset using a normalization function
 in Python, and then we had a dataset ready for modeling.
 
-**Approach and Methodology**
+## Approach and Methodology
 One of the major issues that we encountered early on was the imbalance of the
 dataset. The graph below shows just how few transactions were fraudulent in respect to
 the entire dataset.
@@ -122,6 +135,7 @@ This made it so that our models would predict transactions as ‘not fraud’ ev
 Doing this would result in an accuracy of over 99%, but that is not a good metric to go by
 since it caught so few frauds. We wanted to improve the recall, so we had to take some
 steps to prepare our dataset for modeling.
+
 An approach to imbalanced data is to apply data algorithms to it. We looked into
 different undersampling and oversampling algorithms that we could apply to our dataset.
 We used the SMOTE Oversampler and the Random Undersampler algorithms from
@@ -161,6 +175,7 @@ precision of 0.80, a recall of 0.64, and an F1 score of 0.71 for XGboost. Decisi
 and kNN performed very poorly on this dataset, while LDA performed decently well in
 comparison. The metrics for LDA were significantly worse than AdaBoost though,
 obtaining a precision of 0.16, a recall of 0.73, and an F1 score of just 0.26.
+
 These results showed us that a boosting algorithm performs best on our dataset, so
 we focused on these two algorithms going forward. We continued to work on the
 AdaBoost algorithm, tuning the parameters to obtain the best results. We found that the
@@ -203,7 +218,8 @@ parameters that we applied in order to achieve these results.
 
 ![](./Images/xgboost_classification_report.JPG)
 ![](./Images/xgboost_best_parameters.JPG)
-**Discussion and Result Interpretation**
+
+## Discussion and Result Interpretation
 Our best balanced model was able to achieve an accuracy of 0.99, a precision of
 0.64, a recall of 0.79, and an F1 score of 0.71. These results are a massive improvement
 from our very first models that we ran. When we first downloaded the dataset we ran
@@ -211,6 +227,7 @@ several models before doing any data sampling or feature engineering. These mode
 were resulting in F1 scores of below 0.10 which was a terrible starting point. We had to
 combine in-depth data engineering with various data sampling techniques in order to
 achieve a workable baseline model for our imbalanced dataset.
+
 Through the model testing process we found that using ensemble boosting
 algorithms was the most effective modeling technique for this problem. Many of the
 other models that are said to be good at imbalanced classification, such as decision trees
@@ -220,6 +237,7 @@ works best for imbalanced data. Instead we had to try many different ones that w
 suggested for imbalanced data and find which was most applicable to the credit card
 fraud dataset. Once we found out that XGboost was the best model we were able to
 achieve good results.
+
 After adjusting some of the parameters of the XGboost model we were able to get
 an F1 score of 0.75. However, this model had a recall of 0.70 and a precision of 0.81. Our
 goal for this model was to emphasize recall over precision, so we were not satisfied with
@@ -230,6 +248,7 @@ model we focused on emphasizing recall while still not lowering precision by too
 number. Our final model that we found was best balanced has a precision of 0.64 and a
 recall of 0.79. These different models emphasize different metrics, and it is really up to
 the end user what model would be best to use based on their use case and their goals.
+
 The model still misses some transactions that are fraud, and also misclassifies
 some valid transactions as being fraudulent. However, it is nearly impossible to correctly
 classify all transactions because many fraudulent do not have any real red flags. If a
@@ -242,6 +261,7 @@ purchase amount higher than they usually make. Since these transactions do not f
 the typical pattern of valid transactions, the model may classify them as fraudulent even
 though they are not. However, most valid transactions do not have these characteristics,
 so our model classifies most valid transactions correctly.
+
 Our main goal was to improve the recall metric so that as much fraud as possible
 was identified. We concluded that it was more important for a customer to be notified of
 possible fraudulent transactions, even if they were occasionally false alarms. We faced
@@ -260,9 +280,7 @@ dataset. This required us to spend a lot of our time preparing the data for anal
 we had our data ready we were able to easily apply our models and compare them to each
 other. The XGboost handled the imbalanced data best out of any model, and after
 adjusting some parameters it produced meaningful results that would have a real impact
-in mitigating the damages of credit card fraud. This problem is continually being worked
-
-
+in mitigating the damages of credit card fraud. This problem is continually being worked 
 on in the real world with advanced technology and millions of data points. Through this
 project we were able to identify some of the interesting aspects and difficulties involved
 in solving the credit card fraud problem.
